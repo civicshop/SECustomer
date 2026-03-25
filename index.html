@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>แบบประเมิน</title>
+
+<style>
+body { font-family: Arial; padding: 20px; background:#f5f5f5;}
+.box { max-width:500px; margin:auto; background:white; padding:20px; border-radius:10px;}
+.staff-card {
+  display:inline-block;
+  text-align:center;
+  margin:10px;
+  padding:10px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+  cursor:pointer;
+}
+.staff-card img {
+  width:80px; height:80px;
+  border-radius:50%;
+}
+.selected {
+  border:2px solid green;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>แบบประเมิน</h2>
+
+<select id="project" onchange="loadStaff()">
+  <option value="">เลือกโครงการ</option>
+  <option value="A">โครงการ A</option>
+  <option value="B">โครงการ B</option>
+</select>
+
+<div id="staffList"></div>
+
+<input type="hidden" id="staff">
+
+<h3>ให้คะแนน</h3>
+<button onclick="setScore(1)">😡</button>
+<button onclick="setScore(2)">😐</button>
+<button onclick="setScore(3)">🙂</button>
+<button onclick="setScore(4)">😊</button>
+<button onclick="setScore(5)">😍</button>
+
+<input type="hidden" id="score">
+
+<textarea id="comment" placeholder="ความคิดเห็น"></textarea>
+
+<button onclick="submitForm()">ส่ง</button>
+
+</div>
+
+<script>
+
+const API_URL = "ใส่ URL Apps Script ของคุณ";
+
+let staffData = [];
+let selectedDiv = null;
+let score = 0;
+
+// โหลดข้อมูลครั้งเดียว
+fetch(API_URL + "?action=staff")
+.then(res => res.json())
+.then(data => staffData = data);
+
+function loadStaff() {
+  const project = document.getElementById("project").value;
+  const container = document.getElementById("staffList");
+  container.innerHTML = "";
+
+  const filtered = staffData.filter(s => s.project === project);
+
+  filtered.forEach(staff => {
+    const div = document.createElement("div");
+    div.className = "staff-card";
+
+    div.innerHTML = `
+      <img src="${staff.image}">
+      <p>${staff.name}</p>
+    `;
+
+    div.onclick = () => {
+      document.getElementById("staff").value = staff.name;
+
+      if (selectedDiv) selectedDiv.classList.remove("selected");
+      div.classList.add("selected");
+      selectedDiv = div;
+    };
+
+    container.appendChild(div);
+  });
+}
+
+function setScore(s) {
+  score = s;
+  document.getElementById("score").value = s;
+}
+
+function submitForm() {
+  const data = {
+    project: document.getElementById("project").value,
+    staff: document.getElementById("staff").value,
+    score: score,
+    comment: document.getElementById("comment").value
+  };
+
+  if (!data.project || !data.staff || !data.score) {
+    alert("กรอกข้อมูลไม่ครบ");
+    return;
+  }
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    alert("ขอบคุณครับ");
+    location.reload();
+  });
+}
+
+</script>
+
+</body>
+</html>
