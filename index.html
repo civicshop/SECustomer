@@ -3,7 +3,6 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta charset="UTF-8">
 <title>ความพึงพอใจช่วงส่งมอบบ้าน</title>
 
@@ -13,13 +12,11 @@
 <style>
 * { font-family: 'Prompt', sans-serif; box-sizing: border-box; }
 
-/* 🎨 THEME COLOR */
 :root {
   --primary: #0B3A66;
   --primary-light: #1c5a99;
 }
 
-/* BACKGROUND */
 body::before {
   content: "";
   position: fixed;
@@ -37,38 +34,20 @@ body::before {
   border-radius: 18px;
 }
 
-/* TITLE */
-h2 {
-  text-align: center;
-  margin-bottom: 5px;
-}
+h2 { text-align: center; margin-bottom: 5px; }
 
-/* SUBTITLE */
 .sub-title {
   text-align: center;
-  font-weight: 400;
   color: #666;
   margin-bottom: 10px;
 }
 
-/* LOGO */
 .logo {
   display: block;
   margin: 8px auto;
-  width: 50px;
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: fadeInLogo 0.6s ease forwards;
+  width: 40px;
 }
 
-@keyframes fadeInLogo {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* FORM */
 select, button, textarea {
   width: 100%;
   padding: 12px;
@@ -76,25 +55,24 @@ select, button, textarea {
   border-radius: 10px;
 }
 
+/* ปุ่ม */
 button {
-  padding: 14px;
-  font-size: 16px;
+  background: #ccc;
+  color: #fff;
+  border: none;
 }
 
-select, textarea {
-  font-size: 16px;
+/* ✅ พร้อมกด */
+button:not(:disabled) {
+  background: var(--primary);
+  cursor: pointer;
 }
 
 button:hover:not(:disabled) {
   background: var(--primary-light);
-  transform: scale(1.02);
 }
 
-button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
-}
-
+/* employee */
 .employee-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -112,362 +90,187 @@ button:disabled {
 
 .card img,
 .employee-selected img {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-/* ⭐ SELECTED MODE */
 .employee-selected {
   display: flex;
   justify-content: center;
   margin-top: 15px;
 }
 
-.employee-selected .card {
-  border: none !important;
-  box-shadow: none;
-  padding: 10px;
-  cursor: default;
-  background: transparent;
-}
-/* ขนาดของรูปพนักงานที่เลือก */
-.employee-selected img {
-  width: 70px;
-  height: 70px;
-}
+/* stars */
+.stars { font-size: 30px; }
+.star { color: #ccc; }
+.star.active { color: var(--primary); }
 
-/* ⭐ STARS */
-.stars {
-  font-size: 30px;
-}
-
-.star {
-  color: #ccc;
-  transition: 0.2s;
-}
-
-.star.active {
-  color: var(--primary);
-  transform: scale(1.2);
-}
-
-.question {
-  margin-top: 15px;
-}
-
-.question p {
-  margin: 5px 0;
-  font-weight: 500;
-}
-
-.skeleton {
-  height: 120px;
-  border-radius: 15px;
-  background: linear-gradient(90deg,#eee,#f5f5f5,#eee);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s infinite;
-}
-
-@keyframes shimmer {
-  0% {background-position:-200% 0;}
-  100% {background-position:200% 0;}
-}
-
-@media (max-width: 480px) {
-
-  h2 {
-    font-size: 20px;
-  }
-
-  .sub-title {
-    font-size: 14px;
-  }
-
-  .employee-selected img {
-    width: 100px;
-    height: 100px;
-  }
-
-}
-
-/* ชื่อพนักงาน */
-.swal-title {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 2px;
-}
-
-/* ข้อความรอง */
-.swal-sub {
-  font-size: 18px;
-  font-weight: 400;
-  color: #555;
-  margin-top: 0;
-}
-
-/* ขยับรูปขึ้น (ให้ชิดชื่อ) */
+/* swal */
 .swal2-image {
   border-radius: 50%;
-  object-fit: cover;
   margin-top: 20px !important;
-  margin-bottom: 0 !important;
 }
 
-/* layout ปุ่ม */
 .swal2-actions {
   width: 50%;
   display: flex;
   gap: 8px;
 }
 
-/* ปุ่มเล็กลง กระชับ */
-.btn-confirm, .btn-cancel {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  font-family: 'Prompt', sans-serif;
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
-}
-
-/* ปุ่มถูกต้อง */
 .btn-confirm {
   background: #0B3A66;
   color: #fff;
+  padding: 8px;
+  border-radius: 8px;
 }
 
-/* ปุ่มแก้ไข */
 .btn-cancel {
   background: #e0e0e0;
-  color: #333;
+  padding: 8px;
+  border-radius: 8px;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="container">
-  
-  <img src="https://cdn.jsdelivr.net/gh/civicshop/staff-images/SE_logo.png" class="logo">
 
-  <h2>แบบประเมินความพึงพอใจช่วงส่งมอบบ้าน</h2>
+<img src="https://cdn.jsdelivr.net/gh/civicshop/staff-images/SE_logo.png" class="logo">
 
-  <h3 class="sub-title" id="subTitle">กรุณาเลือกโครงการ / พนักงาน</h3>
-  
-  <select id="project" onchange="onProjectChange()"></select>
+<h2>แบบประเมินความพึงพอใจช่วงส่งมอบบ้าน</h2>
+<h3 class="sub-title" id="subTitle">กรุณาเลือกโครงการ / พนักงาน</h3>
 
-  <div id="employeeList" class="employee-list"></div>
+<select id="project" onchange="onProjectChange()"></select>
 
-  <!-- Evaluation -->
-  <div id="evaluationSection" style="display:none;">
+<div id="employeeList" class="employee-list"></div>
 
-    <div class="question">
-      <p>1. ความเรียบร้อยและคุณภาพของงาน</p>
-      <div class="stars" data-q="q1"></div>
-    </div>
+<div id="evaluationSection" style="display:none;">
+  <div class="question"><p>1. งาน</p><div class="stars" data-q="q1"></div></div>
+  <div class="question"><p>2. เวลา</p><div class="stars" data-q="q2"></div></div>
+  <div class="question"><p>3. มืออาชีพ</p><div class="stars" data-q="q3"></div></div>
+  <div class="question"><p>4. บริการ</p><div class="stars" data-q="q4"></div></div>
+  <textarea id="q5"></textarea>
+</div>
 
-    <div class="question">
-      <p>2. ความตรงต่อเวลา</p>
-      <div class="stars" data-q="q2"></div>
-    </div>
-
-    <div class="question">
-      <p>3. ความเป็นมืออาชีพ</p>
-      <div class="stars" data-q="q3"></div>
-    </div>
-
-    <div class="question">
-      <p>4. การบริการ</p>
-      <div class="stars" data-q="q4"></div>
-    </div>
-
-    <div class="question">
-      <p>5. ข้อเสนอแนะเพิ่มเติม</p>
-      <textarea id="q5"></textarea>
-    </div>
-
-  </div>
-
-  <button id="saveBtn" onclick="saveData()" style="display:none;" disabled>บันทึก</button>
+<button id="saveBtn" onclick="saveData()" style="display:none;" disabled>บันทึก</button>
 
 </div>
 
+<!-- ✅ THANK YOU -->
+<div id="thankYou" style="display:none; text-align:center; padding:40px;">
+  <h2>ขอบคุณสำหรับการประเมิน 🙏</h2>
+</div>
+
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwVImkrhfODOV7u37sMW7NSZYxIJH5dR7K9rJ8V1QZaEcFjkOIQb3FWqJbjSywCz2n6/exec";
+const API_URL = "YOUR_API";
 
 let allEmployees = [];
 let selectedEmpId = "";
-let scores = { q1:0, q2:0, q3:0, q4:0 };
+let scores = { q1:0,q2:0,q3:0,q4:0 };
 
-function getImage(empId) {
-  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp`;
+function getImage(id){
+  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${id}.webp`;
 }
 
-function showSkeleton() {
-  let html = "";
-  for (let i = 0; i < 4; i++) html += `<div class="skeleton"></div>`;
-  document.getElementById("employeeList").innerHTML = html;
-}
-
-async function init() {
-  showSkeleton();
-  const res = await fetch(API_URL + "?action=init&t=" + Date.now());
+async function init(){
+  const res = await fetch(API_URL+"?action=init");
   const data = await res.json();
-
-  renderProjects(data.projects);
   allEmployees = data.employees;
 
-  document.getElementById("employeeList").innerHTML = "";
+  const sel = document.getElementById("project");
+  sel.innerHTML = "<option value=''>--เลือก--</option>";
+  data.projects.forEach(p=>{
+    sel.innerHTML += `<option value="${p.project_id}">${p.project_name}</option>`;
+  });
 
   initStars();
 }
 
-function renderProjects(projects) {
-  const select = document.getElementById("project");
-  select.innerHTML = "<option value=''>-- เลือกโครงการ --</option>";
-
-  projects.forEach(p => {
-    select.innerHTML += `<option value="${p.project_id}">${p.project_name}</option>`;
+function onProjectChange(){
+  const pid = project.value;
+  let html="";
+  allEmployees.filter(e=>e.project_id==pid).forEach(emp=>{
+    html+=`
+    <div class="card" onclick="selectEmp('${emp.emp_id}',this)">
+      <img src="${getImage(emp.emp_id)}">
+      <div>${emp.emp_name}</div>
+    </div>`;
   });
+  employeeList.innerHTML=html;
 }
 
-function onProjectChange() {
-  showSkeleton();
-
-  selectedEmpId = "";
-
-  document.getElementById("evaluationSection").style.display = "none";
-  document.getElementById("saveBtn").style.display = "none";
-
-  setTimeout(() => {
-    const projectId = document.getElementById("project").value;
-    const list = allEmployees.filter(e => String(e.project_id) === String(projectId));
-
-    let html = "";
-
-    list.forEach(emp => {
-      html += `
-        <div class="card" onclick="selectEmp('${emp.emp_id}', this)">
-          <img src="${getImage(emp.emp_id)}" onerror="this.src='https://via.placeholder.com/70'">
-          <div>${emp.emp_name}</div>
-        </div>
-      `;
-    });
-
-    document.getElementById("employeeList").className = "employee-list";
-    document.getElementById("employeeList").innerHTML = html;
-
-  }, 200);
-}
-
-function selectEmp(id, el) {
-
-  selectedEmpId = id;
-
-  const empName = el.querySelector("div").innerText;
-  const imgSrc = el.querySelector("img").src;
+function selectEmp(id,el){
+  selectedEmpId=id;
+  const name=el.innerText;
+  const img=el.querySelector("img").src;
 
   Swal.fire({
-    title: empName,
-    html: `<div style="margin-top:-10px;">ยืนยันเลือกพนักงาน</div>`,
-    imageUrl: imgSrc,
-    imageWidth: 80, // ✅ ขนาดเท่ากับหน้าเลือก
-    imageHeight: 80,
-    imageAlt: empName,
-    showCancelButton: true,
-    confirmButtonText: "ถูกต้อง",
-    cancelButtonText: "แก้ไข",
-    reverseButtons: true,
-    customClass: {
-      confirmButton: "btn-confirm",
-      cancelButton: "btn-cancel"
-    },
-    buttonsStyling: false
-  }).then(result => {
+    title:name,
+    html:"ยืนยันเลือกพนักงาน",
+    imageUrl:img,
+    imageWidth:80,
+    showCancelButton:true,
+    confirmButtonText:"ถูกต้อง",
+    cancelButtonText:"แก้ไข",
+    customClass:{confirmButton:"btn-confirm",cancelButton:"btn-cancel"},
+    buttonsStyling:false
+  }).then(r=>{
+    if(!r.isConfirmed){selectedEmpId="";return;}
 
-    if (!result.isConfirmed) {
-      selectedEmpId = "";
-      return;
-    }
-    // ✅ ซ่อนส่วนเลือก
-    document.getElementById("subTitle").style.display = "none";
-    document.getElementById("project").style.display = "none";
-    
-    const clone = el.cloneNode(true);
-    clone.removeAttribute("onclick");
+    subTitle.style.display="none";
+    project.style.display="none";
 
-    const container = document.getElementById("employeeList");
-    container.innerHTML = "";
-    container.className = "employee-selected";
-    container.appendChild(clone);
+    employeeList.className="employee-selected";
+    employeeList.innerHTML=el.outerHTML;
 
-    scores = { q1:0, q2:0, q3:0, q4:0 };
-    document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
-
-    document.getElementById("evaluationSection").style.display = "block";
-    document.getElementById("saveBtn").style.display = "block";
-    document.getElementById("saveBtn").disabled = true;
-
-    document.getElementById("evaluationSection").scrollIntoView({ behavior: "smooth" });
-
+    evaluationSection.style.display="block";
+    saveBtn.style.display="block";
   });
 }
 
-function initStars() {
-  document.querySelectorAll(".stars").forEach(container => {
-    const q = container.dataset.q;
-
-    for (let i=1;i<=5;i++) {
-      const span = document.createElement("span");
-      span.innerHTML = "★";
-      span.className = "star";
-      span.onclick = () => setRating(q, i, container);
-      container.appendChild(span);
+function initStars(){
+  document.querySelectorAll(".stars").forEach(c=>{
+    let q=c.dataset.q;
+    for(let i=1;i<=5;i++){
+      let s=document.createElement("span");
+      s.innerHTML="★";
+      s.className="star";
+      s.onclick=()=>{scores[q]=i;updateStars(c,i);check()};
+      c.appendChild(s);
     }
   });
 }
 
-function setRating(q, score, container) {
-  scores[q] = score;
-
-  const stars = container.querySelectorAll(".star");
-  stars.forEach((s, index) => {
-    s.classList.toggle("active", index < score);
+function updateStars(c,n){
+  c.querySelectorAll(".star").forEach((s,i)=>{
+    s.classList.toggle("active",i<n);
   });
-
-  checkComplete();
 }
 
-function checkComplete() {
-  const complete = scores.q1 && scores.q2 && scores.q3 && scores.q4;
-  document.getElementById("saveBtn").disabled = !complete;
+function check(){
+  saveBtn.disabled=!(scores.q1&&scores.q2&&scores.q3&&scores.q4);
 }
 
-async function saveData() {
-  const projectId = document.getElementById("project").value;
-  const q5 = document.getElementById("q5").value;
-
-  if (!projectId || !selectedEmpId || !scores.q1 || !scores.q2 || !scores.q3 || !scores.q4) {
-    Swal.fire({icon:'warning',title:'กรอกข้อมูลไม่ครบ'});
-    return;
-  }
+async function saveData(){
 
   Swal.fire({title:'กำลังบันทึก...',didOpen:()=>Swal.showLoading()});
 
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "saveData",
-      projectId,
-      empId: selectedEmpId,
-      ...scores,
-      q5
-    })
+  await fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify({empId:selectedEmpId,...scores})
   });
 
-  Swal.fire({icon:'success',title:'สำเร็จ',timer:1500,showConfirmButton:false});
+  Swal.fire({
+    icon:'success',
+    title:'บันทึกสำเร็จ',
+    timer:1000,
+    showConfirmButton:false
+  }).then(()=>{
+    document.querySelector(".container").style.display="none";
+    document.getElementById("thankYou").style.display="block";
+  });
 }
 
 init();
