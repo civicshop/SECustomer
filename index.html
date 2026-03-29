@@ -110,9 +110,10 @@ button:disabled {
   cursor: pointer;
 }
 
-.card img {
-  width: 80px;
-  height: 80px;
+.card img,
+.employee-selected img {
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* ⭐ SELECTED MODE */
@@ -253,8 +254,8 @@ button:disabled {
 
   <h2>แบบประเมินความพึงพอใจช่วงส่งมอบบ้าน</h2>
 
-  <h3 class="sub-title">กรุณาเลือกโครงการ / พนักงาน</h3>
-
+  <h3 class="sub-title" id="subTitle">กรุณาเลือกโครงการ / พนักงาน</h3>
+  
   <select id="project" onchange="onProjectChange()"></select>
 
   <div id="employeeList" class="employee-list"></div>
@@ -390,7 +391,10 @@ function selectEmp(id, el) {
       selectedEmpId = "";
       return;
     }
-
+    // ✅ ซ่อนส่วนเลือก
+    document.getElementById("subTitle").style.display = "none";
+    document.getElementById("project").style.display = "none";
+    
     const clone = el.cloneNode(true);
     clone.removeAttribute("onclick");
 
