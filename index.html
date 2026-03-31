@@ -81,6 +81,8 @@ button {
   border: none;
   cursor: not-allowed;
   transition: 0.2s;
+  font-size: 16px;   /* 👈 เพิ่ม */
+  font-weight: 500;  /* 👈 เพิ่ม (ดูชัดขึ้น) */
 }
 
 /* ✅ ตอน enabled */
@@ -201,7 +203,9 @@ button:hover:not(:disabled) {
     width: 100px;
     height: 100px;
   }
-
+  button {
+    font-size: 17px;   /* 👈 mobile ใหญ่ขึ้นนิด */
+  }
 }
 
 /* layout ปุ่ม */
@@ -211,13 +215,13 @@ button:hover:not(:disabled) {
   gap: 8px;
 }
 
-/* ปุ่มเล็กลง กระชับ */
+/* ปุ่มใน popup */
 .btn-confirm, .btn-cancel {
   flex: 1;
-  padding: 8px;
+  padding: 10px;      /* 👈 เพิ่มจาก 8px */
   border-radius: 8px;
   font-family: 'Prompt', sans-serif;
-  font-size: 13px;
+  font-size: 15px;    /* 👈 ใหญ่ขึ้น */
   border: none;
   cursor: pointer;
 }
@@ -284,27 +288,27 @@ button:hover:not(:disabled) {
   <div id="evaluationSection" style="display:none;">
 
     <div class="question">
-      <p>1. ความเรียบร้อยและคุณภาพของงาน</p>
+      <p>ความเรียบร้อยและคุณภาพของงานก่อสร้าง</p>
       <div class="stars" data-q="q1"></div>
     </div>
 
     <div class="question">
-      <p>2. ความตรงต่อเวลา</p>
+      <p>ความรวดเร็วในการนัดหมายและการแก้ไขงานตรงตามวันและเวลาที่ได้รับการยืนยัน</p>
       <div class="stars" data-q="q2"></div>
     </div>
 
     <div class="question">
-      <p>3. ความเป็นมืออาชีพ</p>
+      <p>พนักงานมีการทบทวนรายการแก้ไขงานก่อนเข้าตรวจ และตอบข้อซักถามได้อย่างชัดเจนอย่างมืออาชีพ</p>
       <div class="stars" data-q="q3"></div>
     </div>
 
     <div class="question">
-      <p>4. การบริการ</p>
+      <p>พนักงานส่งมอบบ้านให้บริการด้วยความยินดี และมีอัธยาศัยที่ดี</p>
       <div class="stars" data-q="q4"></div>
     </div>
 
     <div class="question">
-      <p>5. ข้อเสนอแนะเพิ่มเติม</p>
+      <p>ข้อแนะนำอื่นๆ</p>
       <textarea id="q5"></textarea>
     </div>
 
@@ -533,7 +537,8 @@ async function saveData() {
   allowOutsideClick: false
 }).then(() => {
 
-  localStorage.setItem("submitted", "true");
+  //localStorage.setItem("submitted", "true");
+  
   // ✅ ปิดหน้าเว็บ
   window.close();
 
@@ -546,7 +551,8 @@ async function saveData() {
 }
 
 initStars();
-  const isSubmitted = localStorage.getItem("submitted");
+/*
+const isSubmitted = localStorage.getItem("submitted");
 
 if (isSubmitted === "true") {
   document.body.innerHTML = `
@@ -555,4 +561,6 @@ if (isSubmitted === "true") {
       <p style="color:#666;">ขอบคุณสำหรับความคิดเห็น</p>
     </div>
   `;
+}*/
+
 </script>
