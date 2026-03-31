@@ -533,6 +533,7 @@ async function saveData() {
   allowOutsideClick: false
 }).then(() => {
 
+  localStorage.setItem("submitted", "true");
   // ✅ ปิดหน้าเว็บ
   window.close();
 
@@ -545,4 +546,13 @@ async function saveData() {
 }
 
 initStars();
+  const isSubmitted = localStorage.getItem("submitted");
+
+if (isSubmitted === "true") {
+  document.body.innerHTML = `
+    <div style="text-align:center; margin-top:50px;">
+      <h2>ท่านได้ทำแบบประเมินเรียบร้อยแล้ว</h2>
+      <p style="color:#666;">ขอบคุณสำหรับความคิดเห็น</p>
+    </div>
+  `;
 </script>
