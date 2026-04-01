@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta charset="UTF-8">
-<title>ความพึงพอใจช่วงส่งมอบบ้าน</title>
+<title>ความพึงพอใจช่วงเยี่ยมชมโครงการ</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -274,7 +274,7 @@ button:hover:not(:disabled) {
   <p class="text-sub" id="subTitle">
   "ผลการประเมินจะถูกเก็บเป็นความลับ พนักงานจะไม่ทราบคะแนนรายบุคคล โดยข้อมูลจะนำไปใช้เพื่อปรับปรุงคุณภาพการบริการของบริษัทเท่านั้น"
 </p>
- 
+  
   <select id="project" onchange="onProjectChange()">
   <option value="">-- เลือกโครงการ/พนักงานที่ให้บริการ --</option>
   <option value="K4">อิเธอร์นิตี้ กรีนวู้ด รังสิต-วงแหวน</option>
@@ -292,28 +292,33 @@ button:hover:not(:disabled) {
   <div id="evaluationSection" style="display:none;">
 
     <div class="question">
-      <p>ความเรียบร้อยและคุณภาพของงานก่อสร้าง</p>
+      <p>บรรยากาศ และสภาพแวดล้อมภายในโครงการ</p>
       <div class="stars" data-q="q1"></div>
     </div>
 
     <div class="question">
-      <p>ความรวดเร็วในการนัดหมายและการแก้ไขงานตรงตามวันและเวลาที่ได้รับการยืนยัน</p>
+      <p>ความสวยงามของการออกแบบและรูปแบบบ้านในโครงการ</p>
       <div class="stars" data-q="q2"></div>
     </div>
 
     <div class="question">
-      <p>พนักงานมีการทบทวนรายการแก้ไขงานก่อนเข้าตรวจ และตอบข้อซักถามได้อย่างชัดเจนอย่างมืออาชีพ</p>
+      <p>ราคาคุ้มค่าเหมาะสมกับคุณภาพของบ้าน</p>
       <div class="stars" data-q="q3"></div>
     </div>
 
     <div class="question">
-      <p>พนักงานส่งมอบบ้านให้บริการด้วยความยินดี และมีอัธยาศัยที่ดี</p>
+      <p>โปรโมชั่นและของแถมน่าสนใจ</p>
       <div class="stars" data-q="q4"></div>
     </div>
 
     <div class="question">
+      <p>พนักงานขายให้บริการด้วยความยินดี และมีอัธยาศัยที่ดี</p>
+      <div class="stars" data-q="q5"></div>
+    </div>
+
+    <div class="question">
       <p>ข้อแนะนำอื่นๆ</p>
-      <textarea id="q5"></textarea>
+      <textarea id="q6"></textarea>
     </div>
 
   </div>
@@ -326,31 +331,34 @@ button:hover:not(:disabled) {
 
 const employeesByProject = {
   S1: [
-    { emp_id: "SE01", emp_name: "ธีร เพชรพรหม" },
-    { emp_id: "SE05", emp_name: "นาวี อะโนรี" }
+    { emp_id: "SA09", emp_name: "สุภาสินี กาบแก้ว (แก้ม)" }
   ],
   TC: [
-    { emp_id: "SE01", emp_name: "ธีร เพชรพรหม" },
-    { emp_id: "SE05", emp_name: "นาวี อะโนรี" }
+    { emp_id: "SA09", emp_name: "สุภาสินี กาบแก้ว (แก้ม)" },
+    { emp_id: "SA10", emp_name: "กัลยนันท์ มณีสุขใส (จั้มเปอร์)" }
   ],
   K4: [
-    { emp_id: "SE02", emp_name: "อธิพงศ์ ชุมมณี" },
-    { emp_id: "SE03", emp_name: "โจจิ ทานากะ" }
+    { emp_id: "SA02", emp_name: "มนัสนันท์ เพ็ชร์น้อย (กอญ่า)" },
+    { emp_id: "SA03", emp_name: "พิมพ์จันทร์ เปล่งวัน (พิม)" },
+    { emp_id: "SA04", emp_name: "ศุภัควลันญ์ ปทีปปปรัชญานนท์ (ขนมผิง)" }
   ],
   WP: [
-    { emp_id: "SE02", emp_name: "อธิพงศ์ ชุมมณี" },
-    { emp_id: "SE03", emp_name: "โจจิ ทานากะ" }
+    { emp_id: "SA02", emp_name: "มนัสนันท์ เพ็ชร์น้อย (กอญ่า)" },
+    { emp_id: "SA03", emp_name: "พิมพ์จันทร์ เปล่งวัน (พิม)" },
+    { emp_id: "SA04", emp_name: "ศุภัควลันญ์ ปทีปปปรัชญานนท์ (ขนมผิง)" }
   ],
   SM: [
-    { emp_id: "SE04", emp_name: "ฉัตรชัย น้ำแก้ว" },
-    { emp_id: "SE07", emp_name: "สันติรักษ์ เตระพันธ์" }
+    { emp_id: "SA01", emp_name: "สุจิตรา สารีบุตร (มะกรูด)" },  
+    { emp_id: "SA07", emp_name: "โศรยา กลั่นแก้ว (หวาย)" },
+    { emp_id: "SA08", emp_name: "ศิริดาวัลย์ กุลภัทราพงศ์ (แป้ง)" }
   ],
   S5: [
-    { emp_id: "SE04", emp_name: "ฉัตรชัย น้ำแก้ว" },
-    { emp_id: "SE08", emp_name: "ปฐมภูมิ กองประถม" }
+    { emp_id: "SA01", emp_name: "สุจิตรา สารีบุตร (มะกรูด)" },
+    { emp_id: "SA06", emp_name: "พัชรา กิตดานุวัฒ (หนิง)" }
   ],
   R9: [
-    { emp_id: "SE06", emp_name: "กันตพงศ์  บุญทวี" }
+  { emp_id: "SA02", emp_name: "มนัสนันท์ เพ็ชร์น้อย (กอญ่า)" },  
+  { emp_id: "SA05", emp_name: "จิรัสยา สดชื่น (บี)" }
   ]
 };
 
@@ -358,10 +366,10 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwVImkrhfODOV7u37sMW7NS
 
 //let allEmployees = [];
 let selectedEmpId = "";
-let scores = { q1:0, q2:0, q3:0, q4:0 };
+let scores = { q1:0, q2:0, q3:0, q4:0, q5:0 };
 
 function getImage(empId) {
-  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp`;
+  return `https://cdn.jsdelivr.net/gh/civicshop/emp-images/${empId}.webp`;
 }
 
 function showSkeleton() {
@@ -458,7 +466,7 @@ function selectEmp(id, el) {
     container.className = "employee-selected";
     container.appendChild(clone);
 
-    scores = { q1:0, q2:0, q3:0, q4:0 };
+    scores = { q1:0, q2:0, q3:0, q4:0, q5:0 };
     document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
 
     document.getElementById("evaluationSection").style.display = "block";
@@ -493,7 +501,12 @@ function setRating(q, score, container) {
 }
 
 function checkComplete() {
-  const complete = scores.q1 && scores.q2 && scores.q3 && scores.q4;
+  const complete = 
+    scores.q1 && 
+    scores.q2 && 
+    scores.q3 && 
+    scores.q4 && 
+    scores.q5;
   document.getElementById("saveBtn").disabled = !complete;
 }
 
@@ -503,7 +516,7 @@ async function saveData() {
   const projectId = projectEl.value;
   const projectName = projectEl.options[projectEl.selectedIndex]?.text;
 
-  const q5 = document.getElementById("q5").value;
+  const q6 = document.getElementById("q6").value;
 
   // 👉 หา empName จาก list
   const empList = employeesByProject[projectId] || [];
@@ -523,7 +536,7 @@ async function saveData() {
 
   const payload = {
   action: "saveData",
-  formType: "cm", // 🔥 ใส่ตรงนี้
+  formType: "sale1", // 🔥 ใส่ตรงนี้
 
   projectId,
   projectName,
@@ -533,7 +546,8 @@ async function saveData() {
   q2: scores.q2,
   q3: scores.q3,
   q4: scores.q4,
-  q5
+  q5: scores.q5,
+  q6
 };
 
   console.log("SEND:", payload); // debug
