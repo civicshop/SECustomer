@@ -436,8 +436,8 @@ function selectEmp(id, el) {
     cancelButtonText: "แก้ไข",
     reverseButtons: true,
     customClass: {
-      confirmButton: "btn-confirm",
-      cancelButton: "btn-cancel"
+    confirmButton: "btn-confirm",
+    cancelButton: "btn-cancel"
     },
     buttonsStyling: false
   }).then(result => {
@@ -561,16 +561,4 @@ async function saveData() {
 }
 
 initStars();
-/*
-const isSubmitted = localStorage.getItem("submitted");
-
-if (isSubmitted === "true") {
-  document.body.innerHTML = `
-    <div style="text-align:center; margin-top:50px;">
-      <h2>ท่านได้ทำแบบประเมินเรียบร้อยแล้ว</h2>
-      <p style="color:#666;">ขอบคุณสำหรับความคิดเห็น</p>
-    </div>
-  `;
-}*/
-
 </script>
