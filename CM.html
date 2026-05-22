@@ -269,7 +269,7 @@ button:hover:not(:disabled) {
     <img src="https://cdn.jsdelivr.net/gh/civicshop/staff-images/Logo_SE_Cutoff.webp" alt="logo">
   </div>
 
-  <h2>แบบประเมินความพึงพอใจช่วงเยี่ยมชมโครงการ</h2>
+  <h2>แบบประเมินความพึงพอใจช่วงส่งมอบบ้าน</h2>
 
   <p class="text-sub" id="subTitle">
   "ผลการประเมินจะถูกเก็บเป็นความลับ พนักงานจะไม่ทราบคะแนนรายบุคคล โดยข้อมูลจะนำไปใช้เพื่อปรับปรุงคุณภาพการบริการของบริษัทเท่านั้น"
@@ -326,31 +326,31 @@ button:hover:not(:disabled) {
 
 const employeesByProject = {
   S1: [
-    { emp_id: "SE01", emp_name: "ธีร เพชรพรหม" },
-    { emp_id: "SE05", emp_name: "นาวี อะโนรี" }
+    { emp_id: "CM01", emp_name: "ธีร เพชรพรหม" },
+    { emp_id: "CM05", emp_name: "นาวี อะโนรี" }
   ],
   TC: [
-    { emp_id: "SE01", emp_name: "ธีร เพชรพรหม" },
-    { emp_id: "SE05", emp_name: "นาวี อะโนรี" }
+    { emp_id: "CM01", emp_name: "ธีร เพชรพรหม" },
+    { emp_id: "CM05", emp_name: "นาวี อะโนรี" }
   ],
   K4: [
-    { emp_id: "SE02", emp_name: "อธิพงศ์ ชุมมณี" },
-    { emp_id: "SE03", emp_name: "โจจิ ทานากะ" }
+    { emp_id: "CM02", emp_name: "อธิพงศ์ ชุมมณี" },
+    { emp_id: "CM03", emp_name: "โจจิ ทานากะ" }
   ],
   WP: [
-    { emp_id: "SE02", emp_name: "อธิพงศ์ ชุมมณี" },
-    { emp_id: "SE03", emp_name: "โจจิ ทานากะ" }
+    { emp_id: "CM02", emp_name: "อธิพงศ์ ชุมมณี" },
+    { emp_id: "CM03", emp_name: "โจจิ ทานากะ" }
   ],
   SM: [
-    { emp_id: "SE04", emp_name: "ฉัตรชัย น้ำแก้ว" },
-    { emp_id: "SE07", emp_name: "สันติรักษ์ เตระพันธ์" }
+    { emp_id: "CM04", emp_name: "ฉัตรชัย น้ำแก้ว" },
+    { emp_id: "CM07", emp_name: "สันติรักษ์ เตระพันธ์" }
   ],
   S5: [
-    { emp_id: "SE04", emp_name: "ฉัตรชัย น้ำแก้ว" },
-    { emp_id: "SE08", emp_name: "ปฐมภูมิ กองประถม" }
+    { emp_id: "CM04", emp_name: "ฉัตรชัย น้ำแก้ว" },
+    { emp_id: "CM08", emp_name: "ปฐมภูมิ กองประถม" }
   ],
   R9: [
-    { emp_id: "SE06", emp_name: "กันตพงศ์  บุญทวี" }
+    { emp_id: "CM06", emp_name: "กันตพงศ์  บุญทวี" }
   ]
 };
 
@@ -361,7 +361,7 @@ let selectedEmpId = "";
 let scores = { q1:0, q2:0, q3:0, q4:0 };
 
 function getImage(empId) {
-  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp?v=2`;
+  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp`;
 }
 
 function showSkeleton() {
