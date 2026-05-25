@@ -359,16 +359,33 @@ const employeesByProject = {
 
 const API_URL = "https://script.google.com/macros/s/AKfycbwVImkrhfODOV7u37sMW7NSZYxIJH5dR7K9rJ8V1QZaEcFjkOIQb3FWqJbjSywCz2n6/exec";
 
+//let allEmployees = [];
 let selectedEmpId = "";
-
-// ✅ มีแค่คะแนน
 let scores = { q1:0, q2:0, q3:0, q4:0 };
 
 function getImage(empId) {
-  return `https://cdn.jsdelivr.net/gh/civicshop/emp-images/${empId}.webp`;
+  return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp`;
+}
+
+function showSkeleton() {
+  let html = "";
+  for (let i = 0; i < 4; i++) html += `<div class="skeleton"></div>`;
+  document.getElementById("employeeList").innerHTML = html;
+}
+
+function renderProjects(projects) {
+  const select = document.getElementById("project");
+  let html = "<option value=''>เลือกโครงการ / พนักงานที่ให้บริการ</option>";
+
+projects.forEach(p => {
+  html += `<option value="${p.project_id}">${p.project_name}</option>`;
+});
+
+select.innerHTML = html;
 }
 
 function onProjectChange() {
+
   selectedEmpId = "";
 
   document.getElementById("evaluationSection").style.display = "none";
@@ -377,12 +394,23 @@ function onProjectChange() {
   const projectId = document.getElementById("project").value;
   const list = employeesByProject[projectId] || [];
 
+  // ✅ STEP 5: preload รูป
+  list.forEach(emp => {
+    const img = new Image();
+    img.src = getImage(emp.emp_id);
+  });
+
   let html = "";
 
   list.forEach(emp => {
     html += `
       <div class="card" onclick="selectEmp('${emp.emp_id}', this)">
-        <img src="${getImage(emp.emp_id)}">
+        <img 
+          src="${getImage(emp.emp_id)}"
+          loading="lazy"
+          width="80"
+          height="80"
+          onerror="this.src='https://via.placeholder.com/70'">
         <div>${emp.emp_name}</div>
       </div>
     `;
@@ -401,21 +429,30 @@ function selectEmp(id, el) {
 
   Swal.fire({
     title: empName,
-    html: `<div>ยืนยันเลือกพนักงาน</div>`,
+    html: `<div style="margin-top:-10px;">ยืนยันเลือกพนักงาน</div>`,
     imageUrl: imgSrc,
+    imageWidth: 80, // ✅ ขนาดเท่ากับหน้าเลือก
+    imageHeight: 80,
+    imageAlt: empName,
     showCancelButton: true,
     confirmButtonText: "ถูกต้อง",
-    cancelButtonText: "แก้ไข"
+    cancelButtonText: "แก้ไข",
+    reverseButtons: true,
+    customClass: {
+    confirmButton: "btn-confirm",
+    cancelButton: "btn-cancel"
+    },
+    buttonsStyling: false
   }).then(result => {
 
     if (!result.isConfirmed) {
       selectedEmpId = "";
       return;
     }
-
+    // ✅ ซ่อนส่วนเลือก
     document.getElementById("subTitle").style.display = "none";
     document.getElementById("project").style.display = "none";
-
+    
     const clone = el.cloneNode(true);
     clone.removeAttribute("onclick");
 
@@ -424,7 +461,6 @@ function selectEmp(id, el) {
     container.className = "employee-selected";
     container.appendChild(clone);
 
-    // reset
     scores = { q1:0, q2:0, q3:0, q4:0 };
     document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
 
@@ -459,14 +495,8 @@ function setRating(q, score, container) {
   checkComplete();
 }
 
-// ✅ เหลือแค่ 4 ข้อ
 function checkComplete() {
-  const complete =
-    scores.q1 &&
-    scores.q2 &&
-    scores.q3 &&
-    scores.q4;
-
+  const complete = scores.q1 && scores.q2 && scores.q3 && scores.q4;
   document.getElementById("saveBtn").disabled = !complete;
 }
 
@@ -476,9 +506,9 @@ async function saveData() {
   const projectId = projectEl.value;
   const projectName = projectEl.options[projectEl.selectedIndex]?.text;
 
-  // ✅ comment
-  const comment = document.getElementById("q5").value;
+  const q5 = document.getElementById("q5").value;
 
+  // 👉 หา empName จาก list
   const empList = employeesByProject[projectId] || [];
   const empObj = empList.find(e => e.emp_id === selectedEmpId);
   const empName = empObj ? empObj.emp_name : "";
@@ -495,17 +525,21 @@ async function saveData() {
   });
 
   const payload = {
-    formType: "sale2",
-    projectId,
-    projectName,
-    empId: selectedEmpId,
-    empName,
-    q1: scores.q1,
-    q2: scores.q2,
-    q3: scores.q3,
-    q4: scores.q4,
-    q5: comment   // ✅ optional
-  };
+  action: "saveData",
+  formType: "cm", // 🔥 ใส่ตรงนี้
+
+  projectId,
+  projectName,
+  empId: selectedEmpId,
+  empName,
+  q1: scores.q1,
+  q2: scores.q2,
+  q3: scores.q3,
+  q4: scores.q4,
+  q5
+};
+
+  console.log("SEND:", payload); // debug
 
   await fetch(API_URL, {
     method: "POST",
@@ -514,15 +548,20 @@ async function saveData() {
 
   Swal.fire({
     html: `
-      <h2>ขอบคุณสำหรับการประเมิน</h2>
+      <h2 style="margin:5px 0;">ขอบคุณสำหรับการประเมิน</h2>
       <p style="color:#666;">ความคิดเห็นของท่านมีความสำคัญสำหรับเรา</p>
     `,
-    confirmButtonText: "ปิด"
+    confirmButtonText: "ปิด",
+    customClass: { confirmButton: "btn-confirm" },
+    buttonsStyling: false,
+    allowOutsideClick: false
   }).then(() => {
     window.close();
+    setTimeout(() => {
+      window.location.href = "about:blank";
+    }, 300);
   });
 }
 
 initStars();
-
 </script>
