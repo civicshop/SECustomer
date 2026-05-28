@@ -8,7 +8,9 @@
 <title>ความพึงพอใจช่วงส่งมอบบ้าน</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
 <style>
 * { font-family: 'Prompt', sans-serif; box-sizing: border-box; }
@@ -324,6 +326,27 @@ button:hover:not(:disabled) {
 
 <script>
 
+const LIFF_ID = "2007065360-XadjZsva";
+
+async function initLiff() {
+  await liff.init({ liffId: LIFF_ID });
+
+  if (!liff.isLoggedIn()) {
+    liff.login();
+    return;
+  }
+
+  const profile = await liff.getProfile();
+
+  // 👉 เก็บไว้ใช้
+  window.userId = profile.userId;
+  window.displayName = profile.displayName;
+
+  console.log("LINE USER:", profile);
+}
+
+initLiff();
+
 const employeesByProject = {
   S1: [
     { emp_id: "CM01", emp_name: "ธีร เพชรพรหม" },
@@ -529,11 +552,16 @@ async function saveData() {
   projectName,
   empId: selectedEmpId,
   empName,
+
   q1: scores.q1,
   q2: scores.q2,
   q3: scores.q3,
   q4: scores.q4,
-  q5
+  q5,
+
+  // ✅ เพิ่ม
+  lineUserId: window.userId || "",
+  lineName: window.displayName || ""
 };
 
   console.log("SEND:", payload); // debug
@@ -561,4 +589,6 @@ async function saveData() {
 }
 
 initStars();
+
+
 </script>
