@@ -320,7 +320,7 @@ button:hover:not(:disabled) {
 	
 	<div class="question">
       <p>ข้อแนะนำอื่นๆ</p>
-      <textarea id="q6"></textarea>
+      <textarea id="comment"></textarea>
     </div>
 
   </div>
@@ -541,6 +541,8 @@ async function saveData() {
   const empObj = empList.find(e => e.emp_id === selectedEmpId);
   const empName = empObj ? empObj.emp_name : "";
 
+  const comment = document.getElementById("comment").value.trim();
+
   if (!projectId || !selectedEmpId || !scores.q1 || !scores.q2 || !scores.q3 || !scores.q4 || !scores.q5) {
     Swal.fire({icon:'warning',title:'กรอกข้อมูลไม่ครบ'});
     return;
@@ -566,7 +568,7 @@ async function saveData() {
   q3: scores.q3,
   q4: scores.q4,
   q5: scores.q5,
-  q6,
+  q6: comment
 
   // ✅ เพิ่ม
   lineUserId: window.userId || "",
