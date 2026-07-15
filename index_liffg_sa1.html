@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta charset="UTF-8">
-<title>ความพึงพอใจช่วงโอนกรรมสิทธิ์</title>
+<title>ความพึงพอใจช่วงเยี่ยมชมโครงการ</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -271,7 +271,7 @@ button:hover:not(:disabled) {
     <img src="https://cdn.jsdelivr.net/gh/civicshop/staff-images/Logo_SE_Cutoff.webp" alt="logo">
   </div>
 
-  <h2>แบบประเมินความพึงพอใจช่วงโอนกรรมสิทธิ์</h2>
+  <h2>แบบประเมินความพึงพอใจช่วงเยี่ยมชมโครงการ</h2>
   
   <p class="text-sub" id="subTitle">
   "ผลการประเมินจะถูกเก็บเป็นความลับ พนักงานจะไม่ทราบคะแนนรายบุคคล โดยข้อมูลจะนำไปใช้เพื่อปรับปรุงคุณภาพการบริการของบริษัทเท่านั้น"
@@ -294,28 +294,33 @@ button:hover:not(:disabled) {
   <div id="evaluationSection" style="display:none;">
 
     <div class="question">
-      <p>การตอบข้อซักถามได้อย่างชัดเจนเกี่ยวกับข้อมูลสินเชื่อ</p>
+      <p>บรรยากาศ และสภาพแวดล้อมภายในโครงการ</p>
       <div class="stars" data-q="q1"></div>
     </div>
 
     <div class="question">
-      <p>การติดตามและรายงานความคืบหน้าการแก้ไขงานซ่อมบ้านก่อนนัดโอนกรรมสิทธิ์ที่ดิน</p>
+      <p>ความสวยงามของการออกแบบและรูปแบบบ้านในโครงการ</p>
       <div class="stars" data-q="q2"></div>
     </div>
 
     <div class="question">
-      <p>ความรวดเร็วในการดำเนินการประสานงานกับธนาคาร และการนัดหมายการโอนกรรมสิทธิ์</p>
+      <p>ราคาคุ้มค่าเหมาะสมกับคุณภาพของบ้าน</p>
       <div class="stars" data-q="q3"></div>
     </div>
 
     <div class="question">
-      <p>พนักงานบริการลูกค้าให้บริการด้วยความยินดี และมีอัธยาศัยที่ดี</p>
+      <p>โปรโมชั่นและของแถมน่าสนใจ</p>
       <div class="stars" data-q="q4"></div>
     </div>
 
     <div class="question">
-      <p>ข้อแนะนำอื่นๆ</p>
+      <p>พนักงานขายให้บริการด้วยความยินดี และมีอัธยาศัยที่ดี</p>
       <textarea id="q5"></textarea>
+    </div>
+	
+	<div class="question">
+      <p>ข้อแนะนำอื่นๆ</p>
+      <textarea id="q6"></textarea>
     </div>
 
   </div>
@@ -326,7 +331,7 @@ button:hover:not(:disabled) {
 
 <script>
 
-const LIFF_ID = "2007065360-X9N6gdwB";
+const LIFF_ID = "2007065360-u2eZYjdj";
 
 async function initLiff() {
   await liff.init({ liffId: LIFF_ID });
@@ -384,7 +389,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwVImkrhfODOV7u37sMW7NS
 
 //let allEmployees = [];
 let selectedEmpId = "";
-let scores = { q1:0, q2:0, q3:0, q4:0 };
+let scores = { q1:0, q2:0, q3:0, q4:0, q5:0 };
 
 function getImage(empId) {
   return `https://cdn.jsdelivr.net/gh/civicshop/staff-images/${empId}.webp`;
@@ -549,7 +554,7 @@ async function saveData() {
 
   const payload = {
   action: "saveData",
-  formType: "sale2_liff", // 🔥 ใส่ตรงนี้
+  formType: "sale1_liff", // 🔥 ใส่ตรงนี้
 
   projectId,
   projectName,
