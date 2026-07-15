@@ -534,7 +534,7 @@ async function saveData() {
   const projectId = projectEl.value;
   const projectName = projectEl.options[projectEl.selectedIndex]?.text;
 
-  const q6 = document.getElementById("comment").value;
+  const comment = document.getElementById("comment").value;
 
   // 👉 หา empName จาก list
   const empList = employeesByProject[projectId] || [];
@@ -566,7 +566,7 @@ async function saveData() {
   q3: scores.q3,
   q4: scores.q4,
   q5: scores.q5,
-  q6,
+  comment,
 
   // ✅ เพิ่ม
   lineUserId: window.userId || "",
