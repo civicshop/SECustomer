@@ -320,7 +320,7 @@ button:hover:not(:disabled) {
 	
 	<div class="question">
       <p>ข้อแนะนำอื่นๆ</p>
-      <textarea id="q6"></textarea>
+      <textarea id="comment" name="comment"></textarea>
     </div>
 
   </div>
@@ -534,7 +534,7 @@ async function saveData() {
   const projectId = projectEl.value;
   const projectName = projectEl.options[projectEl.selectedIndex]?.text;
 
-  const q6 = document.getElementById("q6").value;
+  const q6 = document.getElementById("comment").value;
 
   // 👉 หา empName จาก list
   const empList = employeesByProject[projectId] || [];
