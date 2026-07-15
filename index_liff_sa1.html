@@ -541,8 +541,6 @@ async function saveData() {
   const empObj = empList.find(e => e.emp_id === selectedEmpId);
   const empName = empObj ? empObj.emp_name : "";
 
-  const comment = document.getElementById("comment").value.trim();
-
   if (!projectId || !selectedEmpId || !scores.q1 || !scores.q2 || !scores.q3 || !scores.q4 || !scores.q5) {
     Swal.fire({icon:'warning',title:'กรอกข้อมูลไม่ครบ'});
     return;
