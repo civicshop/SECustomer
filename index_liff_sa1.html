@@ -489,7 +489,7 @@ function selectEmp(id, el) {
     container.className = "employee-selected";
     container.appendChild(clone);
 
-    scores = { q1:0, q2:0, q3:0, q4:0 };
+    scores = { q1:0, q2:0, q3:0, q4:0, q5:0 };
     document.querySelectorAll(".star").forEach(s => s.classList.remove("active"));
 
     document.getElementById("evaluationSection").style.display = "block";
@@ -524,7 +524,7 @@ function setRating(q, score, container) {
 }
 
 function checkComplete() {
-  const complete = scores.q1 && scores.q2 && scores.q3 && scores.q4;
+  const complete = scores.q1 && scores.q2 && scores.q3 && scores.q4 && scores.q5;
   document.getElementById("saveBtn").disabled = !complete;
 }
 
@@ -534,14 +534,14 @@ async function saveData() {
   const projectId = projectEl.value;
   const projectName = projectEl.options[projectEl.selectedIndex]?.text;
 
-  const q5 = document.getElementById("q5").value;
+  const q5 = document.getElementById("q6").value;
 
   // 👉 หา empName จาก list
   const empList = employeesByProject[projectId] || [];
   const empObj = empList.find(e => e.emp_id === selectedEmpId);
   const empName = empObj ? empObj.emp_name : "";
 
-  if (!projectId || !selectedEmpId || !scores.q1 || !scores.q2 || !scores.q3 || !scores.q4) {
+  if (!projectId || !selectedEmpId || !scores.q1 || !scores.q2 || !scores.q3 || !scores.q4 || !scores.q5) {
     Swal.fire({icon:'warning',title:'กรอกข้อมูลไม่ครบ'});
     return;
   }
@@ -565,7 +565,8 @@ async function saveData() {
   q2: scores.q2,
   q3: scores.q3,
   q4: scores.q4,
-  q5,
+  q5: scores.q5,
+  q6,
 
   // ✅ เพิ่ม
   lineUserId: window.userId || "",
